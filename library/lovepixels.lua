@@ -54,7 +54,7 @@ function lovePixels:calcMaxScale()
       lovePixels.maxScale = (lovePixels.screenHeight) / pixelHeight
       -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
       lovePixels.maxWindowScale = math.floor((lovePixels.screenHeight - 1) / pixelHeight)
-  elseif  pixelHeight < pixelWidth then
+  elseif pixelWidth > pixelHeight then
       lovePixels.maxScale = (lovePixels.screenWidth) / pixelWidth
       -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
       lovePixels.maxWindowScale = math.floor((lovePixels.screenWidth - 1) / pixelWidth)
