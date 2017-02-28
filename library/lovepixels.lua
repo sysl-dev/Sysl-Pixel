@@ -32,7 +32,7 @@ local pixelHeight = love.graphics.getHeight()
 local pixelBlack = {000,000,000,255}
 local pixelWhite = {255,255,255,255}
 
-function lovePixels:load(defaultScale, nearestall)
+function lovePixels:load(defaultScale)
     love.graphics.setDefaultFilter( "nearest", "nearest", 1 )
     lovePixels:resizeScreen(defaultScale)
     lovePixels.mainCanvas = love.graphics.newCanvas(pixelWidth,pixelHeight)

@@ -1,6 +1,6 @@
 function love.load()
     lovePixels = require('library.lovepixels')
-    lovePixels:load(2, true)
+    lovePixels:load(2)
 
     -- Testing Stuff Below, Use for Example
     rotimage = love.graphics.newImage("images/rotationtest.png")
