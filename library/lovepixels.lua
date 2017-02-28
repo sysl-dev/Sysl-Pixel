@@ -125,7 +125,7 @@ function lovePixels:fullscreenToggle()
         lovePixels:resizeScreen(lovePixels.maxScale)
         love.window.setFullscreen(true, "desktop")
     else
-        lovePixels:resizeScreen(math.floor(lovePixels.maxScale))
+        lovePixels:resizeScreen(math.floor(lovePixels.maxWindowScale))
         love.window.setFullscreen(false)
     end
 end
