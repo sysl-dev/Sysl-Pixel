@@ -3,22 +3,21 @@ lovePixel is a library that makes scaling your pixel work fast easy and painless
 everything into a pixel perfect size to make it painless to do all work at a small scale.
 
 # Usage
-In love.load:
-    lovePixels = require('library.lovepixels')
-    lovePixels:load(2) -- Starting Scale
+In love.load:<br>
+    lovePixels = require('library.lovepixels')<br>
+    lovePixels:load(2) -- Starting Scale<br>
+<br>
+In love.update(dt)<br>
+    lovePixels:pixelMouse()<br>
+    lovePixels:calcOffset()<br>
+<br>
+In love.draw() at the start:<br>
+    lovePixels:drawGameArea()<br>
+<br>
+In love.draw() at the end:<br>
+    lovePixels:endDrawGameArea()<br>
 
-In love.update(dt)
-    lovePixels:pixelMouse()
-    lovePixels:calcOffset()
-
-In love.draw() at the start:
-    lovePixels:drawGameArea()
-
-
-In love.draw() at the end:
-    lovePixels:endDrawGameArea()
-
-If you're using something like Hump.States library, include the DrawGameArea in all state:draws.
+If you're using something like Hump.States library, include the DrawGameArea in all state:draws.<br>
 
 # Main.lua
 Main.lua shows off examples of how to adjust the window size live, full screen, and how scaling will just work.
