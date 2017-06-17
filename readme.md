@@ -23,3 +23,7 @@ If you're using something like Hump.States library, include the DrawGameArea in 
 Main.lua shows off examples of how to adjust the window size live, full screen, and how scaling will just work.
 
 ![image](https://i.imgur.com/6NSUM1V.png)
+
+# Hump Camera Patch
+in Camera:attach replace w, h line with this one<br>
+w,h = w or love.graphics.getWidth() / lovePixels.scale, h or love.graphics.getHeight() / lovePixels.scale  -- Update for lovePixels 
