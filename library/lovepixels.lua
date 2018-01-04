@@ -1,5 +1,6 @@
 --[[----------------------------------------------------------------------------
-lovePixels Beta v 1.0
+lovePixels Beta v 1.5
+Updated to fix fullscreen issues.
 C. Hall/SystemL 2017
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -49,30 +50,25 @@ function lovePixels:screenSize()
     lovePixels.screenHeight = height
 end
 
-function lovePixels:calcMaxScale()
-  if pixelHeight > pixelWidth then
-      lovePixels.maxScale = (lovePixels.screenHeight) / pixelHeight
-      -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
-      lovePixels.maxWindowScale = math.floor((lovePixels.screenHeight - 1) / pixelHeight)
-  elseif pixelWidth > pixelHeight then
-      lovePixels.maxScale = (lovePixels.screenWidth) / pixelWidth
-      -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
-      lovePixels.maxWindowScale = math.floor((lovePixels.screenWidth - 1) / pixelWidth)
-  else
-    -- They are the same, choose based on width/height on monitor.
-    if   lovePixels.screenWidth < lovePixels.screenHeight then
-      lovePixels.maxScale = (lovePixels.screenWidth) / pixelWidth -- Monitor Width is the smallest so use it first
-      -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
-      lovePixels.maxWindowScale = math.floor((lovePixels.screenWidth - 1) / pixelWidth)
-    else
-      lovePixels.maxScale = (lovePixels.screenHeight) / pixelHeight-- Monitor Height is the smallest so use it first
-      -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
-      lovePixels.maxWindowScale = math.floor((lovePixels.screenHeight - 1) / pixelHeight)
-    end
-  end
+function lovePixels:calcMaxScale() -- This is a much better way to do this.
+    lovePixels.maxWindowScale = 3
+    lovePixels.maxScale = 4
+    local floatHeight = (lovePixels.screenHeight) / pixelHeight
+    local floatWidth = (lovePixels.screenWidth) / pixelWidth
+
+        if floatHeight < floatWidth then
+            lovePixels.maxScale = (lovePixels.screenHeight) / pixelHeight
+            -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
+            lovePixels.maxWindowScale = math.floor((lovePixels.screenHeight - 1) / pixelHeight)
+        else
+             lovePixels.maxScale = (lovePixels.screenWidth) / pixelWidth
+             -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
+             lovePixels.maxWindowScale = math.floor((lovePixels.screenWidth - 1) / pixelWidth)
+        end
+
 end
 
--- Currently only supports width > height monitors. Todo??
+-- This should work on all monitors now? I think??
 function lovePixels:calcOffset()
     local xgamearea = pixelWidth * lovePixels.maxScale
     local width = lovePixels.screenWidth
