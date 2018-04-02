@@ -25,15 +25,15 @@ function love.load()
     	psystem:setSizes(1,0.1)
     	psystem:setSizeVariation(1)
     	psystem:setLinearAcceleration(0, 0, 40, 5) -- Random movement in all directions.
-    	psystem:setColors(255, 255, 255, 255, 255, 255, 255, 0) -- Fade to transparency.
+    	psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
 end
 
 function love.draw()
   lovePixels:drawGameArea() -- Include this before all draws, if using HUMP, include within each game state draw
   -- Testing Stuff Below, Use for Example
-love.graphics.setColor({30,30,30,255})
+love.graphics.setColor({30/255,30/255,30/255,1})
 love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth() / lovePixels.scale, love.graphics.getHeight() / lovePixels.scale)
-love.graphics.setColor({255,255,255,255})
+love.graphics.setColor({1,1,1,1})
 love.graphics.print("Controls: V MaxScale, B MinScale,\n          N FullScreen, M ToggleSizes, C ToggleMouse " ..
                     "\nPixelMouseX/Y: " .. lovePixels.mousex  ..
                     "/" .. lovePixels.mousey .. " Window Focused: " .. text ..

@@ -30,8 +30,8 @@ local lovePixels = {}
 
 local pixelWidth = love.graphics.getWidth()
 local pixelHeight = love.graphics.getHeight()
-local pixelBlack = {000,000,000,255}
-local pixelWhite = {255,255,255,255}
+local pixelBlack = {0,0,0,1}
+local pixelWhite = {1,1,1,1}
 
 function lovePixels:load(defaultScale)
     love.graphics.setDefaultFilter( "nearest", "nearest", 1 )
