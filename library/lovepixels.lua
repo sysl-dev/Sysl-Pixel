@@ -24,7 +24,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
+  if key == "v" then
+    lovePixels:resizeScreen(lovePixels.maxWindowScale)
+  end
+  if key == "b" then
+    lovePixels:resizeScreen(1)
+  end
+  if key == "n" then
+    lovePixels:fullscreenToggle()
+  end
+  if key == "c" then
+    love.mouse.setVisible(not love.mouse.isVisible())
+    love.mouse.setGrabbed(not love.mouse.isGrabbed())
+  end
+  if key == "m" then
+		if lovePixels.scale < math.floor(lovePixels.maxWindowScale) then
+			lovePixels:resizeScreen(lovePixels.scale + 1)
+		else
+			lovePixels:resizeScreen(1)
+		end
+  end
 ----------------------------------------------------------------------------]]--
 local lovePixels = {}
 
@@ -35,11 +54,12 @@ local pixelWhite = {1,1,1,1}
 
 function lovePixels:load(defaultScale)
     love.graphics.setDefaultFilter( "nearest", "nearest", 1 )
-    lovePixels:resizeScreen(defaultScale)
     lovePixels.mainCanvas = love.graphics.newCanvas(pixelWidth,pixelHeight)
     lovePixels:screenSize()
     lovePixels:calcMaxScale()
     lovePixels:calcOffset()
+    defaultScale = defaultScale or lovePixels.maxWindowScale
+    lovePixels:resizeScreen(defaultScale)
     -- Add functions as I work here
 end
 
@@ -59,13 +79,14 @@ function lovePixels:calcMaxScale() -- This is a much better way to do this.
         if floatHeight < floatWidth then
             lovePixels.maxScale = (lovePixels.screenHeight) / pixelHeight
             -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
-            lovePixels.maxWindowScale = math.floor((lovePixels.screenHeight - 1) / pixelHeight)
+            lovePixels.maxWindowScale = math.floor((lovePixels.screenHeight - 100) / pixelHeight)
         else
              lovePixels.maxScale = (lovePixels.screenWidth) / pixelWidth
              -- We do -1 here to keep max window size in check from bleeding off the top and bottom of the screen in Windows.
-             lovePixels.maxWindowScale = math.floor((lovePixels.screenWidth - 1) / pixelWidth)
+             lovePixels.maxWindowScale = math.floor((lovePixels.screenWidth - 100) / pixelWidth)
         end
-
+        print("Lovepixels Max Scale: " .. lovePixels.maxScale)
+        print("Lovepixels Max Window Scale: " .. lovePixels.maxWindowScale)
 end
 
 -- This should work on all monitors now? I think??
@@ -99,6 +120,7 @@ end
 -- Stop drawing the canvas so we can take it and scale it.
 function lovePixels:endDrawGameArea()
     love.graphics.setCanvas()
+    love.graphics.setColor(pixelWhite) -- Has to be added to fix canvas fix in love 11.1
     love.graphics.draw(lovePixels.mainCanvas, 0 + lovePixels.xoffset , 0 + lovePixels.yoffset, 0, lovePixels.scale, lovePixels.scale)
 end
 
@@ -127,4 +149,5 @@ function lovePixels:fullscreenToggle()
 end
 
 
+print("lovePixels - Launch")
 return lovePixels
