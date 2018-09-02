@@ -1,7 +1,8 @@
 --[[----------------------------------------------------------------------------
-lovePixels Beta v 1.5
+lovePixels Beta v 1.8
 Updated to fix fullscreen issues.
-C. Hall/SystemL 2017
+Updated to work with the new love color format. Replace 1, with 255 if needed.
+C. Hall/SystemL 2018
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -127,7 +128,7 @@ end
 -- Call this function to resize the screen with a new scale.
 function lovePixels:resizeScreen(newScale)
     lovePixels.scale = newScale
-    love.window.setMode(pixelWidth * lovePixels.scale, pixelHeight * lovePixels.scale, {})
+    love.window.setMode(pixelWidth * lovePixels.scale, pixelHeight * lovePixels.scale, {fullscreen = false, resizable = true, highdpi = true})
 end
 
 -- pixelMouse watches where we click to match it with the scaled game area.
@@ -146,6 +147,20 @@ function lovePixels:fullscreenToggle()
         lovePixels:resizeScreen(math.floor(lovePixels.maxWindowScale))
         love.window.setFullscreen(false)
     end
+end
+
+function love.resize(w,h)
+  print(w,h)
+  if w == lovePixels.screenWidth and lovePixels.scale ~= math.floor(lovePixels.maxWindowScale) then
+    lovePixels:resizeScreen(math.floor(lovePixels.maxWindowScale))
+  else
+    if lovePixels.scale < math.floor(lovePixels.maxWindowScale) then
+      lovePixels:resizeScreen(lovePixels.scale + 1)
+    else
+      lovePixels:resizeScreen(2)
+    end
+  end
+  print(w,h)
 end
 
 
