@@ -25,6 +25,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+Useful Testing Keys
   if key == "v" then
     lovePixels:resizeScreen(lovePixels.maxWindowScale)
   end
@@ -44,6 +46,14 @@ THE SOFTWARE.
 		else
 			lovePixels:resizeScreen(1)
 		end
+
+Useful for using web love.
+if love.system.getOS() == 'Web' then
+  lovePixels.scale = 4 --fixed scale on web
+else
+  lovePixels.scale = newScale
+  love.window.setMode(pixelWidth * lovePixels.scale, pixelHeight * lovePixels.scale, {})
+end
   end
 ----------------------------------------------------------------------------]]--
 local lovePixels = {}
@@ -128,7 +138,7 @@ end
 -- Call this function to resize the screen with a new scale.
 function lovePixels:resizeScreen(newScale)
     lovePixels.scale = newScale
-    love.window.setMode(pixelWidth * lovePixels.scale, pixelHeight * lovePixels.scale, {fullscreen = false, resizable = true, highdpi = true})
+    love.window.setMode(pixelWidth * lovePixels.scale, pixelHeight * lovePixels.scale, {fullscreen = false, resizable = true, highdpi = false})
 end
 
 -- pixelMouse watches where we click to match it with the scaled game area.
@@ -149,20 +159,19 @@ function lovePixels:fullscreenToggle()
     end
 end
 
+
 function love.resize(w,h)
   print(w,h)
-  if w == lovePixels.screenWidth and lovePixels.scale ~= math.floor(lovePixels.maxWindowScale) then
-    lovePixels:resizeScreen(math.floor(lovePixels.maxWindowScale))
-  else
-    if lovePixels.scale < math.floor(lovePixels.maxWindowScale) then
+  if h ~= lovePixels.screenHeight or w ~= lovePixels.screenWidth then -- Cheap hack to allow full screen and resize
+    if lovePixels.scale < math.floor(lovePixels.maxWindowScale)  then
       lovePixels:resizeScreen(lovePixels.scale + 1)
     else
-      lovePixels:resizeScreen(2)
+      lovePixels:resizeScreen(1)
     end
-  end
-  print(w,h)
-end
+  else
 
+  end
+end
 
 print("lovePixels - Launch")
 return lovePixels

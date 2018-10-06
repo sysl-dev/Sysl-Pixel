@@ -6,4 +6,5 @@ function love.conf(t)
   t.build             = "1.0"
   t.window.width      = 320 -- 320/180 is Full HD (1920x1080 / 6)
   t.window.height     = 180 -- Best area for pixel full screen, scales well into 4K
+  t.window.resizable = true                                       -- Let the window be user-resizable (boolean)
 end
